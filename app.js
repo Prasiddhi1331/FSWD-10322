@@ -1,3 +1,11 @@
-// web API's
+const doSomething = ()=>{
+    console.log('d')
+}
+setTimeout(doSomething,0)
+console.log('a')
+console.log('b')
+console.log('c')
 
-//localStorage.setItem('model',"C class")
+for(let i=0;i<1000;i++){
+    console.log('block')
+}
