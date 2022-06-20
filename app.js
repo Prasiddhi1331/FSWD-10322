@@ -1,18 +1,19 @@
-const arr =[1,2,3,4,5,6]
+const todoList = document.querySelector("ol");
+const input = document.querySelector("input");
 
-const callback =(value,index)=>{
-  if(value==99) return true
+const chores = [];
+
+const displayList = (chores) => {
+  chores.forEach((chore) => {
+    const ele = document.createElement('li')
+    ele.innerHTML=chore
+    todoList.appendChild(ele)
+  });
+};
+const handleAdd = ()=>{
+  const eleToAdd = document.createElement('li')
+  eleToAdd.innerHTML = input.value
+  todoList.appendChild(eleToAdd)
 }
 
-const a = ()=>{}
-
-const isPresent = arr.find(callback)
-console.log(isPresent)
-
-//const newArr = arr.filter((value,index) => valye%2===0?true:false)
-//console.log(newArr)
-
-//const num = 10;
-
-//const result = num%2===0 ? "even": "odd"
-//console.log(result)
+displayList(chores);
