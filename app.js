@@ -1,28 +1,10 @@
-const counter = document.querySelector("h1#counter");
+const arr =[1,2,3,4,5,6]
 
-const interval = function(){
-    let val = counter.innerHTML;
-    val++;
-    counter.innerHTML = val;
-};
-
-let intervalid = null;
-
-function start(){
-    if (intervalid) return window.alert("Timer is already running");
-    intervalid = setInterval(interval,1000);
+const callback =(value,index)=>{
+  if(value==99) return true
 }
 
-function stop(){
-    if (!intervalid) return window.alert("NO timer to stop");
-    clearInterval(intervalid);
-}
+const a = ()=>{}
 
-function reset(){
-    if (intervalid){
-        stop();
-    }
-    CountQueuingStrategy.innerHTML = 0;
-}
-
-console.log(new Date().toLocaleDateString())
+const isPresent = arr.find(callback)
+console.log(isPresent)
