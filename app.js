@@ -1,19 +1,19 @@
 const todoList = document.querySelector("ol");
 const input = document.querySelector("input");
+const addBtn = document.querySelector("button");
 
-const chores = [];
-
-const displayList = (chores) => {
-  chores.forEach((chore) => {
-    const ele = document.createElement('li')
-    ele.innerHTML=chore
-    todoList.appendChild(ele)
-  });
-};
 const handleAdd = ()=>{
   const eleToAdd = document.createElement('li')
+
+  const deleteButton = document.createElement('button')
+  deleteButton.innerHTML= 'delete'
+  deleteButton.addEventListener('click',()=>{
+    eleToAdd.remove()
+  })
+
   eleToAdd.innerHTML = input.value
+  eleToAdd.appendChild(deleteButton)
   todoList.appendChild(eleToAdd)
 }
 
-displayList(chores);
+addBtn.addEventListener('click',handleAdd)
