@@ -1,19 +1,60 @@
-const todoList = document.querySelector("ol");
-const input = document.querySelector("input");
-const addBtn = document.querySelector("button");
+//could also use nth child selector
 
-const handleAdd = ()=>{
-  const eleToAdd = document.createElement('li')
+const_rock = document.querySelector("#rock")
+const_paper = document.querySelector("#paper")
+const_scissors = document.querySelector("#scissors")
 
-  const deleteButton = document.createElement('button')
-  deleteButton.innerHTML= 'delete'
-  deleteButton.addEventListener('click',()=>{
-    eleToAdd.remove()
-  })
+//variable choices
+const choices =["rock","paper","scissors"]
 
-  eleToAdd.innerHTML = input.value
-  eleToAdd.appendChild(deleteButton)
-  todoList.appendChild(eleToAdd)
+//game functions
+
+const generateComputerResponse = ()=>{
+  const index = ((Math.random()*10).toFixed(0))%3
+  return choices[index]
 }
 
-addBtn.addEventListener('click',handleAdd)
+const playGame = (userResponse)=>{
+  const computerResponse = generateComputerResponse()
+  console.log(userResponse===computerResponse)
+  if(userResponse===computerResponse) return console.log("Tie!!")
+  switch(userResponse){
+    case "rock":
+      switch(computerResponse){
+        case "paper":
+          console.log('computer wins')
+          break
+        case "scissors":
+          console.log('user wins')
+          break
+      }
+      break;
+      case "paper":
+        switch(computerResponse){
+          case "rock":
+            console.log('user wins')
+            break
+          case "scissors":
+            console.log('computer wins')
+            break
+        }
+        break;
+      case "scissors":
+        switch(computerResponse){
+          case "rock":
+            console.log('computer wins')
+            break
+          case "paper":
+            console.log('user wins')
+            break
+        }
+        break;
+        default:
+          window.alert('invalid response')
+  }
+}
+
+// add event listeners
+rock.addEventListener('click',(e)=>playGame(e.target.id))
+paper.addEventListener('click',(e)=>playGame(e.target.id))
+scissors.addEventListener('click',(e)=>playGame(e.target.id))
