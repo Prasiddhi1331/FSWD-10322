@@ -5,11 +5,19 @@
     box-sizing: border-box;
 }
 
+/*message box styles*/
+div.message {
+    display: flex;
+    justify-content: center;
+    font-style: 2.5rem;
+    align-items: center;
+    margin: 20px;
+}
 
 /*scoreboard style*/
 
 div.scoreboard {
-    margin: 50px;
+    margin: 50px 0px 0px 10px;
     display: flex;
     justify-content: center;
     align-items: center;
