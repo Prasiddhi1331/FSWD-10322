@@ -1,11 +1,8 @@
-const os = require('os')
+const http = require('http')
 
-console.log(os.uptime())
-console.log(os.homedir())
-console.log(os.arch())
-console.log(os.cpus())
-console.log(os.userInfo())
-console.log(os.freemem())
-console.log(os.hostname())
-console.log(os.version())
-console.log(os.release())
+const server = http.createServer((req,res)=>{
+    res.write("<h1>PING from server</h1>")
+    res.end();
+})
+
+server.listen(4000)
