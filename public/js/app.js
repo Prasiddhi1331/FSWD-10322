@@ -1,14 +1,13 @@
 const endpoint = "https://jsonplaceholder.typicode.com/todos"
 
 const getData = async ()=>{
-    const response = await new Promise(resolve=>{
-        setTimeout(()=>{
-        resolve()
-    },5000)
-    })
-
-    for(let i=0;i<10000;i++)console.log("hi")
+    try {
+        const response = await fetch(endpoint)
+        const jsonData = await response.json()
+        console.log(jsonData)
+    } catch(error) {
+        console.log(error)
+    }
 }
 
 getData()
-console.log('something')
