@@ -1,0 +1,23 @@
+{
+  "name": "demo",
+  "version": "1.0.0",
+  "description": "a package to demonstrate node capabilities",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Prasiddhi1331/FSWD-10322.git"
+  },
+  "author": "Prasiddhi Singh",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Prasiddhi1331/FSWD-10322/issues"
+  },
+  "homepage": "https://github.com/Prasiddhi1331/FSWD-10322#readme",
+  "dependencies": {
+    "axios": "^0.27.2"
+  }
+}
