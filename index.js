@@ -20,9 +20,7 @@ const server = http.createServer((req,res)=>{
         const data = fs.readFileSync(path.join(__dirname,'/public/image.jpg'))
         res.write(data)
     }
-    res.writeHead(200,{
-        'custom':"something"
-    })
+    
         res.end()
     })  
 
