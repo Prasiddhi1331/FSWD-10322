@@ -19,7 +19,8 @@
   "homepage": "https://github.com/Prasiddhi1331/FSWD-10322#readme",
   "dependencies": {
     "axios": "^0.27.2",
-    "express": "^4.18.1"
+    "express": "^4.18.1",
+    "shortid": "^2.2.16"
   },
   "devDependencies": {
     "node": "^18.8.0",

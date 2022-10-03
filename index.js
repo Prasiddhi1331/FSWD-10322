@@ -2,10 +2,46 @@ const { Router } = require("express");
 const express = require("express");
 const fs = require("fs");
 const path = require("path");
+const shortid = require("shortid");
+const { something, isAuthorised } = require('./middlewares/index');
+
+const shortid = require("shortid");
 
 const app = express();
 
+app.use(express.static(path.join(__dirname, "public")));
+
 app.use(express.json());
+
+app.use(something);
+
+/*
+TYPE: POST
+PARAMS: null
+QUERY: email
+DESCRIPTION: route to create user
+*/
+
+app.post ("/user", (req,res)=>{
+  try {
+    const users = JSON.parse(
+      fs.readFileSync(path.join(__dirname, "users.json"), { encoding: "UTF-8" })
+    );
+    
+    const { email } = req.body;
+    const user ={
+      email,
+      api_key:shortid.generate(),
+    };
+    users.push(user);
+    fs.writeFileSync(path.join(__dirname, "users.json"), JSON.stringify(users));
+    res.send(user);
+  } catch (error) {
+    return res.send(error.message);
+  }
+  
+});
+
 
 /*
 TYPE: GET
@@ -13,10 +49,10 @@ PARAMS: null
 QUERY: count
 DESCRIPTION: route to fetch all todos
 */
-app.get("/todos", (req, res) => {
+app.get("/todos", isAuthorised, (req, res) => {
   try {
     const todos = JSON.parse(
-      fs.readFileSync(path.join(__dirname, "data.json"), { encoding: "UTF-8" })
+      fs.readFileSync(path.join(__dirname, "db.json"), { encoding: "UTF-8" })
     );
 
     const { count } = req.query;
@@ -40,7 +76,7 @@ DESCRIPTION: route to fetch a specific todo
 app.get("/todos/:id", (req, res) => {
   try {
     const todos = JSON.parse(
-      fs.readFileSync(path.join(__dirname, "data.json"), { encoding: "UTF-8" })
+      fs.readFileSync(path.join(__dirname, "db.json"), { encoding: "UTF-8" })
     );
     const { id } = req.params;
     const todo = todos.find((e) => e.id == id);
@@ -66,7 +102,7 @@ app.post("/todos", (req, res) => {
   try {
     const data = req.body;
     const todos = JSON.parse(
-      fs.readFileSync(path.join(__dirname, "data.json"), { encoding: "UTF-8" })
+      fs.readFileSync(path.join(__dirname, "db.json"), { encoding: "UTF-8" })
     );
     const todo = {
       ...data,
@@ -75,7 +111,7 @@ app.post("/todos", (req, res) => {
 
     todos.push(todo);
 
-    fs.writeFileSync(path.join(__dirname, "data.json"), JSON.stringify(todos));
+    fs.writeFileSync(path.join(__dirname, "db.json"), JSON.stringify(todos));
     //   console.log(todo);
     res.send(todo);
   } catch (error) {
@@ -95,12 +131,12 @@ app.delete("/todos/:id", (req, res) => {
   try {
     const { id } = req.params;
     const todos = JSON.parse(
-      fs.readFileSync(path.join(__dirname, "data.json"), { encoding: "UTF-8" })
+      fs.readFileSync(path.join(__dirname, "db.json"), { encoding: "UTF-8" })
     );
 
     const newTodos = todos.filter((todo) => todo.id != id);
 
-    fs.writeFileSync(path.join(__dirname, "data.json"), JSON.stringify(newTodos));
+    fs.writeFileSync(path.join(__dirname, "db.json"), JSON.stringify(newTodos));
     //   console.log(todo);
     res.send(newTodos);
   } catch (error) {
@@ -114,7 +150,7 @@ app.put("/todos/:id", (req, res) => {
     const { id } = req.params;
     const data = req.body;
     const todos = JSON.parse(
-      fs.readFileSync(path.join(__dirname, "data.json"), { encoding: "UTF-8" })
+      fs.readFileSync(path.join(__dirname, "db.json"), { encoding: "UTF-8" })
     );
 
     const newTodos = todos.map((todo) => {
@@ -129,7 +165,7 @@ app.put("/todos/:id", (req, res) => {
       }
     });
 
-    fs.writeFileSync(path.join(__dirname, "data.json"), JSON.stringify(newTodos));
+    fs.writeFileSync(path.join(__dirname, "db.json"), JSON.stringify(newTodos));
     //   console.log(todo);
     res.send(newTodos);
   } catch (error) {
